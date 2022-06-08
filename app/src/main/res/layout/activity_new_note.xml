@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.NewNoteActivity">
+
+    <TextView
+        android:id="@+id/title_new_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/product_sans_bold"
+        android:text="New note"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_new_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded"
+        android:fontFamily="@font/product_sans_regular"
+        android:hint="Title"
+        android:minHeight="48dp"
+        android:padding="13dp" />
+
+    <EditText
+        android:id="@+id/et_new_desc"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded"
+        android:fontFamily="@font/product_sans_regular"
+        android:hint="Description"
+        android:textAlignment="textStart"
+        android:minHeight="48dp"
+        android:padding="13dp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/main"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/product_sans_bold"
+        android:text="Save"
+        android:textAllCaps="false"
+        app:cornerRadius="15dp" />
+
+</LinearLayout>
