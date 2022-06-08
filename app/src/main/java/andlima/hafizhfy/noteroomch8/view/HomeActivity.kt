@@ -75,8 +75,9 @@ class HomeActivity : AppCompatActivity() {
                         listData.let {
                             val adapter = AdapterNote(it) { selectedData ->
                                 val noteDetail = Intent(this@HomeActivity, DetailActivity::class.java)
-                                val data = bundleOf("SELECTED_DATA" to selectedData)
-                                noteDetail.putExtras(data)
+                                val bundle = Bundle()
+                                bundle.putParcelable("DATA", selectedData)
+                                noteDetail.putExtra("SELECTED_DATA", bundle)
                                 startActivity(noteDetail)
                                 overridePendingTransition(0,0)
                             }

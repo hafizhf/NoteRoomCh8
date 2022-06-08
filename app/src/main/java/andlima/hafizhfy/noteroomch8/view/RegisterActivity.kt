@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
 
             runOnUiThread {
                 if (register != 0.toLong()) {
-                    snackbarShort(findViewById(R.id.content), "Register success")
+                    snackbarShort(window.decorView.rootView, "Register success")
 
                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                     overridePendingTransition(0,0)

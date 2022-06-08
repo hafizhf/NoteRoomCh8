@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             val password = et_password.text.toString()
 
             if (email != "" && password != "") {
-
+                loginAuth(email, password)
             } else {
                 toast(this, "Please input all field")
             }

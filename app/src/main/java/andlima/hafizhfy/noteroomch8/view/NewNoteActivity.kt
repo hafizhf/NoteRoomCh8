@@ -1,6 +1,7 @@
 package andlima.hafizhfy.noteroomch8.view
 
 import andlima.hafizhfy.noteroomch8.R
+import andlima.hafizhfy.noteroomch8.func.snackbarLong
 import andlima.hafizhfy.noteroomch8.func.snackbarShort
 import andlima.hafizhfy.noteroomch8.func.toast
 import andlima.hafizhfy.noteroomch8.local.datastore.UserManager
@@ -25,14 +26,50 @@ class NewNoteActivity : AppCompatActivity() {
         userManager = UserManager(this)
         mDb = NoteDatabase.getInstance(this)
 
-        btn_save_note.setOnClickListener {
-            val title = et_new_title.text.toString()
-            val desc = et_new_desc.text.toString()
+        val getIntent = intent.getBundleExtra("SELECTED_DATA")
 
-            if (title != "") {
-                addNote(title, desc)
+        if (getIntent == null) {
+            btn_save_note.setOnClickListener {
+                val title = et_new_title.text.toString()
+                val desc = et_new_desc.text.toString()
+
+                if (title != "") {
+                    addNote(title, desc)
+                } else {
+                    toast(this, "Write at least a title to save new note")
+                }
+            }
+        } else {
+            val selectedData = getIntent.getParcelable<Note>("DATA") as Note
+
+            title_new_note.text = "Edit note"
+
+            et_new_title.setText(selectedData.title)
+            et_new_desc.setText(selectedData.description)
+
+            btn_save_note.setOnClickListener {
+                val title = et_new_title.text.toString()
+                val desc = et_new_desc.text.toString()
+
+                if (title != "") {
+                    editNote(selectedData.id!!.toInt(), title, desc)
+                } else {
+                    toast(this, "Write at least a title to save new note")
+                }
+            }
+        }
+
+    }
+
+    private fun editNote(noteId: Int, title: String, desc: String) {
+        GlobalScope.async {
+            val edit = mDb?.noteDao()?.updateNote(noteId, title, desc)
+
+            if (edit != 0) {
+                snackbarShort(window.decorView.rootView, "Note edited")
+                finish()
             } else {
-                toast(this, "Write at least a title to save new note")
+                toast(this@NewNoteActivity, "Edit failed, try again")
             }
         }
     }
@@ -44,7 +81,7 @@ class NewNoteActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     if (submit != 0.toLong()) {
-                        snackbarShort(findViewById(R.id.content), "New note saved")
+                        snackbarLong(window.decorView.rootView, "New note saved")
                         finish()
                     } else {
                         toast(this@NewNoteActivity, "Save failed, try again")
